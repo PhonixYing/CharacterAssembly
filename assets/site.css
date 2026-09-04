@@ -754,3 +754,52 @@ h1 {
     margin: 0 auto;
   }
 }
+
+/* App Store 下载徽章 */
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 48px;
+  padding: 6px 18px 6px 13px;
+  border-radius: 12px;
+  background: #0f1512;
+  color: #ffffff;
+  line-height: 1.16;
+  transition: transform 0.16s ease, opacity 0.16s ease;
+}
+
+.store-badge:hover {
+  transform: translateY(-2px);
+  opacity: 0.94;
+}
+
+.store-badge-icon {
+  width: 25px;
+  height: 25px;
+  flex: none;
+  fill: currentColor;
+}
+
+.store-badge-text {
+  display: grid;
+  text-align: left;
+}
+
+.store-badge-line {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+.store-badge-name {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.screenshot-band .store-badge {
+  background: #ffffff;
+  color: #101410;
+}
