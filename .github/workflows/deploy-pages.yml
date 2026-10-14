@@ -4,8 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "index.html"
-      - "404.html"
+      - "*.html"          # index.html、404.html，以及 Google Search Console 的 HTML 验证文件
       - "sitemap.xml"
       - "feed.xml"
       - "robots.txt"
