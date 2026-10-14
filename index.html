@@ -1,37 +1,58 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>趣学汉字 Fun Hanzi | 学汉字笔顺、拼成语、读文言文（iPhone / iPad）</title>
-    <meta name="description" content="趣学汉字（Fun Hanzi）是一款 iPhone / iPad 中文学习解谜游戏：600 个常用汉字逐笔描红练笔顺，200 个四字成语拖拽拼装，24 篇文言经典按原文逐字还原，支持简体中文与 English。">
-    <meta name="keywords" content="学汉字,汉字笔顺,笔顺练习,常用汉字表,成语学习,四字成语,文言文入门,中文学习游戏,iPhone 学中文,learn Chinese characters,Chinese stroke order,Chinese idioms,classical Chinese">
+    <script>
+      /* 解析阶段先确定语言：?lang > 用户选择（localStorage）> 浏览器系统语言 > 英文。
+         支持的语言列表与 assets/i18n.js 保持一致；非英文时先隐藏页面，避免闪出默认英文。 */
+      (function () {
+        var supported = ["en", "zh", "es", "fr", "de", "pt"];
+        var code = "en";
+        try {
+          var query = new URLSearchParams(location.search).get("lang");
+          var browser = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+          var raw = String(query || localStorage.getItem("characterAssembly.locale") || browser || "en").toLowerCase().split("-")[0];
+          if (supported.indexOf(raw) !== -1) code = raw;
+        } catch (error) { /* 隐私模式等场景下使用默认语言 */ }
+        var root = document.documentElement;
+        root.setAttribute("data-locale", code);
+        root.setAttribute("lang", code === "zh" ? "zh-CN" : code);
+        if (code !== "en") {
+          var guard = document.createElement("style");
+          guard.textContent = "html:not([data-i18n-ready]) body{visibility:hidden}";
+          document.head.appendChild(guard);
+          setTimeout(function () { root.setAttribute("data-i18n-ready", "true"); }, 2000);
+        }
+      })();
+    </script>
+    <title data-i18n="home.meta.title">Character Assembly | Learn Chinese characters, idioms and classical texts</title>
+    <meta name="description" data-i18n-content="home.meta.description" content="Character Assembly is a Chinese learning puzzle game for iPhone and iPad: trace every stroke, drag idioms into place and restore classical texts in their original order.">
+    <meta name="theme-color" content="#235947">
     <meta name="author" content="Donghui Li">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="theme-color" content="#235947">
+    <meta name="keywords" content="learn Chinese characters, Chinese stroke order, Chinese idioms, classical Chinese, Chinese learning app iPhone, 学汉字, 汉字笔顺, 成语学习, 文言文入门">
     <link rel="canonical" href="https://phonixying.github.io/CharacterAssembly/">
-    <link rel="alternate" type="application/rss+xml" title="趣学汉字 Fun Hanzi 文章" href="https://phonixying.github.io/CharacterAssembly/feed.xml">
-
-    <!-- Open Graph / Twitter -->
+    <link rel="alternate" type="application/rss+xml" title="Fun Hanzi articles" href="https://phonixying.github.io/CharacterAssembly/feed.xml">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="趣学汉字 Fun Hanzi">
+    <meta property="og:site_name" content="Character Assembly">
     <meta property="og:url" content="https://phonixying.github.io/CharacterAssembly/">
-    <meta property="og:locale" content="zh_CN">
-    <meta property="og:locale:alternate" content="en_US">
-    <meta property="og:title" content="趣学汉字 Fun Hanzi | 学汉字笔顺、拼成语、读文言文">
-    <meta property="og:description" content="600 个常用汉字逐笔描红、200 个四字成语拖拽拼装、24 篇文言经典逐字还原。支持 iPhone / iPad 与 English 界面。">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:title" data-i18n-content="home.hero.title" content="Character Assembly">
+    <meta property="og:description" data-i18n-content="home.meta.ogDescription" content="Trace every stroke, drag idioms into place and restore classical texts in their original order.">
     <meta property="og:image" content="https://phonixying.github.io/CharacterAssembly/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="趣学汉字 Fun Hanzi：逐笔描红、成语拖拽、文言排序">
+    <meta property="og:image:alt" content="Character Assembly: stroke tracing, idiom assembly, classical text restoration">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="趣学汉字 Fun Hanzi | 学汉字笔顺、拼成语、读文言文">
-    <meta name="twitter:description" content="600 个常用汉字逐笔描红、200 个四字成语拖拽拼装、24 篇文言经典逐字还原。">
+    <meta name="twitter:title" data-i18n-content="home.hero.title" content="Character Assembly">
+    <meta name="twitter:description" data-i18n-content="home.meta.ogDescription" content="Trace every stroke, drag idioms into place and restore classical texts in their original order.">
     <meta name="twitter:image" content="https://phonixying.github.io/CharacterAssembly/assets/og-image.png">
-
     <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/app-icon.png">
     <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/i18n.js" defer></script>
 
     <script type="application/ld+json">
     {
@@ -41,13 +62,12 @@
           "@type": "SoftwareApplication",
           "@id": "https://phonixying.github.io/CharacterAssembly/#app",
           "name": "趣学汉字 Fun Hanzi",
-          "alternateName": "Fun Hanzi",
+          "alternateName": "Character Assembly",
           "applicationCategory": "EducationalApplication",
           "applicationSubCategory": "Games / Word / Puzzle",
           "operatingSystem": "iOS 17.0 or later",
           "url": "https://phonixying.github.io/CharacterAssembly/",
           "downloadUrl": "https://apps.apple.com/app/fun-hanzi/id6804096171",
-          "softwareVersion": "1.0",
           "inLanguage": ["zh-Hans", "en"],
           "description": "一款通过逐笔描红、成语拖拽和文言文逐字排序学习中文的 iPhone / iPad 益智游戏，覆盖 600 个常用汉字、200 个四字成语与 24 篇文言经典。",
           "featureList": ["汉字逐笔描红与笔顺纠错", "四字成语拖拽组合与释义", "文言文按原文逐字排序", "拼音、词语与例句听读", "iPad 横竖屏适配", "简体中文与 English 界面"],
@@ -60,7 +80,7 @@
           "@id": "https://phonixying.github.io/CharacterAssembly/#website",
           "url": "https://phonixying.github.io/CharacterAssembly/",
           "name": "趣学汉字 Fun Hanzi",
-          "inLanguage": "zh-CN",
+          "inLanguage": ["en", "zh-CN", "es", "fr", "de", "pt"],
           "publisher": { "@type": "Person", "name": "Donghui Li" }
         },
         {
@@ -110,17 +130,18 @@
       <nav class="nav" aria-label="Main navigation">
         <a class="brand" href="./">
           <img src="assets/app-icon.svg" alt="">
-          <span>趣学汉字 Fun Hanzi</span>
+          <span>Character Assembly</span>
         </a>
         <div class="nav-links">
-          <a href="#features">功能</a>
-          <a href="#stages">关卡</a>
-          <a href="#updates">更新</a>
-          <a href="blog/">文章</a>
-          <a href="#faq">常见问题</a>
-          <a href="privacy/">隐私</a>
-          <a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer">下载</a>
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#stages" data-i18n="nav.stages">Levels</a>
+          <a href="#updates" data-i18n="nav.updates">Updates</a>
+          <a href="blog/" data-i18n="nav.articles">Articles</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="privacy/" data-i18n="nav.privacy">Privacy</a>
+          <a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer" data-i18n="nav.download">Download</a>
           <a href="https://github.com/PhonixYing/CharacterAssembly" target="_blank" rel="noreferrer">GitHub</a>
+          <div class="lang-switch" data-lang-switch></div>
         </div>
       </nav>
     </header>
@@ -128,51 +149,52 @@
     <main class="page">
       <section class="hero">
         <div>
-          <p class="eyebrow">中文学习 × 轻度解谜 · iPhone、iPad 与 English</p>
-          <h1>趣学汉字 Fun Hanzi</h1>
-          <p class="hero-subtitle">把每一笔、每一个字、每一句经典，拼回正确的位置。</p>
-          <p class="hero-copy">从逐笔描红开始，进入成语拖拽，再到文言文原文排序。汉字关是逐笔描红：沿淡红底稿从起点写到终点，写错会当场提示，三种难度都按顺序解锁；iPad 会根据横竖屏自动调整布局，英文环境也有对应的关卡与进度文案。</p>
+          <p class="eyebrow" data-i18n="home.hero.eyebrow">Chinese learning × light puzzling · iPhone, iPad & English</p>
+          <h1 data-i18n="home.hero.title">Character Assembly</h1>
+          <p class="hero-subtitle" data-i18n="home.hero.subtitle">Snap every stroke, every character and every classic line back into place.</p>
+          <p class="hero-copy" data-i18n="home.hero.copy">Start by tracing each stroke, move on to dragging idioms into place, then restore classical Chinese texts in their original order. From level 4, players pick the correct stroke themselves; iPad adapts its layout to portrait and landscape, and English players get matching level and progress copy.</p>
           <div class="actions">
-            <a class="store-badge" href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer" aria-label="从 App Store 下载趣学汉字 Fun Hanzi">
+            <a class="store-badge" href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer" data-i18n-aria-label="store.badgeAria" aria-label="Download Character Assembly on the App Store">
               <svg class="store-badge-icon" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
               <span class="store-badge-text">
-                <span class="store-badge-line">Download on the</span>
-                <span class="store-badge-name">App Store</span>
+                <span class="store-badge-line" data-i18n="store.badgeLine">Download on the</span>
+                <span class="store-badge-name" data-i18n="store.badgeName">App Store</span>
               </span>
             </a>
-            <a class="button secondary" href="#features">查看玩法</a>
-            <a class="button secondary" href="#updates">查看最近更新</a>
-            <a class="button secondary" href="privacy/">隐私政策</a>
-            <a class="button secondary" href="mailto:lidonghui11911@gmail.com">联系支持</a>
+            <a class="button secondary" href="#features" data-i18n="home.hero.ctaFeatures">See how it plays</a>
+            <a class="button secondary" href="#updates" data-i18n="home.hero.ctaUpdates">See latest updates</a>
+            <a class="button secondary" href="privacy/" data-i18n="home.hero.ctaPrivacy">Privacy Policy</a>
+            <a class="button secondary" href="mailto:lidonghui11911@gmail.com" data-i18n="home.hero.ctaSupport">Contact support</a>
           </div>
         </div>
 
-        <div class="hero-visual" aria-label="Fun Hanzi app preview">
+        <div class="hero-visual" aria-label="Character Assembly app preview">
           <div class="app-card">
             <div class="app-top">
               <div class="app-top-row">
                 <img class="app-icon" src="assets/app-icon.svg" alt="">
-                <span class="pill">逐笔描红</span>
+                <span class="pill" data-i18n="home.app.pill">Level 4 · New mode</span>
               </div>
-              <div class="app-title">描红练习</div>
-              <p class="app-caption">沿淡红底稿，从起点写到终点；写对这一笔才会描上，写错会给出提示。</p>
+              <div class="app-title" data-i18n="home.app.title">Stroke order challenge</div>
+              <p class="app-caption" data-i18n="home.app.caption">The first three levels follow the prompts; from level 4 you tap the strokes shown below and trace them in the right order.</p>
             </div>
             <div class="stage-panel">
               <div class="stroke-demo-head">
-                <strong>木 · 第 3 笔：撇</strong>
+                <strong data-i18n="home.app.strokeHeading">木 · Stroke Order</strong>
                 <span class="progress">2 / 4</span>
               </div>
               <div class="stroke-demo">
-                <div class="glyph-preview trace-guide" aria-label="汉字木的淡红底稿">木</div>
+                <div class="glyph-preview" data-i18n-aria-label="home.app.glyphAria" aria-label="The Chinese character 木">木</div>
                 <div class="stroke-status">
                   <div class="stroke-progress-bar"><span></span></div>
-                  <small>沿淡红底稿 · Follow the pale guide</small>
+                  <small data-i18n="home.app.tapHint">Tap, don't drag</small>
                 </div>
               </div>
-              <div class="stroke-legend">
-                <span class="stroke-legend-item"><i class="legend-swatch done"></i>已描</span>
-                <span class="stroke-legend-item"><i class="legend-swatch current"></i>当前</span>
-                <span class="stroke-legend-item"><i class="legend-swatch pending"></i>待写</span>
+              <div class="stroke-options" aria-hidden="true">
+                <span class="stroke-chip done">一</span>
+                <span class="stroke-chip done">丨</span>
+                <span class="stroke-chip active">丿</span>
+                <span class="stroke-chip">㇏</span>
               </div>
             </div>
           </div>
@@ -181,158 +203,158 @@
 
       <section class="section" id="features">
         <div class="section-head">
-          <h2>围绕中文结构设计的解谜体验</h2>
-          <p>不是单纯背字或猜答案，而是在笔顺、部件、字序和语义关系里做选择。每种玩法都保留清晰目标、即时反馈和可继续的进度。</p>
+          <h2 data-i18n="home.features.title">Puzzles built around the structure of Chinese</h2>
+          <p data-i18n="home.features.lead">This is not about memorising characters or guessing answers: you choose based on stroke order, components, character sequence and meaning. Every mode keeps a clear goal, immediate feedback and progress you can pick up again.</p>
         </div>
         <div class="feature-grid">
           <article class="feature">
             <div class="feature-mark">笔</div>
-            <h3>逐笔描红</h3>
-            <p>60 关都是同一套逐笔描红：沿淡红底稿，从起点写到终点，写对当前笔才继续下一笔；写错会当场提示并记入学习记录。每个字都配拼音、常用词与例句的听读卡。</p>
+            <h3 data-i18n="home.features.a.title">Stroke-by-stroke tracing</h3>
+            <p data-i18n="home.features.a.body">The first three levels guide you clearly; from level 4 all strokes are shown below — tap them in the right order and only the correct one is traced.</p>
           </article>
           <article class="feature">
             <div class="feature-mark">成</div>
-            <h3>成语拖拽</h3>
-            <p>把词块拖到目标槽位，完成后点击查看释义；未完成的词块可以双击移回零件区。</p>
+            <h3 data-i18n="home.features.b.title">Drag-and-drop idioms</h3>
+            <p data-i18n="home.features.b.body">Drag each tile into its target slot, then tap to read the meaning; unfinished tiles can be double-tapped back to the parts tray.</p>
           </article>
           <article class="feature">
             <div class="feature-mark">文</div>
-            <h3>文言排序</h3>
-            <p>从打乱的字堆中按原文依次找字，支持中途退出后继续；重新排序按钮让零件区随时换一种排列。</p>
+            <h3 data-i18n="home.features.c.title">Classical text ordering</h3>
+            <p data-i18n="home.features.c.body">Find the characters in the original order from a shuffled pile and pick up where you left off; a reshuffle button rearranges the parts tray at any time.</p>
           </article>
           <article class="feature">
             <div class="feature-mark">适</div>
-            <h3>多语言与多尺寸</h3>
-            <p>支持简体中文与 English。iPad 竖屏按手机纵向阅读，横屏把正文、零件和拼图区并排展开。</p>
+            <h3 data-i18n="home.features.d.title">Multiple languages and sizes</h3>
+            <p data-i18n="home.features.d.body">Simplified Chinese and English are supported. On iPad, portrait reads in a single column like a phone, while landscape lays out the text, the parts and the puzzle board side by side.</p>
           </article>
         </div>
       </section>
 
       <section class="section" id="stages">
         <div class="section-head">
-          <h2>三种玩法，三种节奏</h2>
-          <p>单字是笔顺训练，成语是词序与语义，文言文是长文本复原。关卡数量和目标都保持明确，适合短时间反复挑战，也适合连续学习。</p>
+          <h2 data-i18n="home.stages.title">Three modes, three rhythms</h2>
+          <p data-i18n="home.stages.lead">Characters train stroke order, idioms train word order and meaning, and classical texts rebuild long passages. Level counts and goals stay clear, so short repeated sessions work as well as longer study.</p>
         </div>
         <div class="modes">
           <article class="mode">
             <div class="mode-label">简</div>
-            <h3>60 关识字练习</h3>
-            <p>每关 10 个常用汉字，从第 1 关起就是正式关卡，全都按逐笔描红进行。三种难度统一按顺序解锁。</p>
-            <small>600 个常用汉字 · 逐笔反馈 · 拼音听读</small>
+            <h3 data-i18n="home.stages.a.title">50 character levels</h3>
+            <p data-i18n="home.stages.a.body">Ten common characters per level. Learn the standard stroke order first, then move from guided tracing to tapping on your own.</p>
+            <small data-i18n="home.stages.a.note">500 common characters · stroke-by-stroke feedback</small>
           </article>
           <article class="mode">
             <div class="mode-label">易</div>
-            <h3>50 关四字成语</h3>
-            <p>每关 4 个成语，从高频直观成语进入共享字、主题词和易混典故，完成后可查看释义。</p>
-            <small>200 个成语目标 · 拖拽组合</small>
+            <h3 data-i18n="home.stages.b.title">50 four-character idiom levels</h3>
+            <p data-i18n="home.stages.b.body">Four idioms per level, moving from high-frequency everyday idioms to shared characters, themes and easily confused allusions, with meanings available on completion.</p>
+            <small data-i18n="home.stages.b.note">200 idiom goals · drag to combine</small>
           </article>
           <article class="mode">
-            <div class="mode-label">难</div>
-            <h3>24 篇文言文</h3>
-            <p>把长篇内容拆成可操作的字块与步骤，按原文顺序逐字还原，支持断点续玩和重新排序。</p>
-            <small>木兰辞 · 桃花源记 · 出师表 等 · 横屏 iPad 双栏</small>
+            <div class="mode-label">文</div>
+            <h3 data-i18n="home.stages.c.title">5 classical texts</h3>
+            <p data-i18n="home.stages.c.body">Long passages are split into workable character tiles and steps so you can rebuild them character by character, with resume and reshuffle support.</p>
+            <small data-i18n="home.stages.c.note">Classic texts · two-column iPad landscape</small>
           </article>
         </div>
       </section>
 
       <section class="section" id="updates">
         <div class="section-head">
-          <h2>最近更新</h2>
-          <p>官网内容同步当前版本的玩法和界面行为，方便你在下载或反馈前快速了解完整体验。</p>
+          <h2 data-i18n="home.updates.title">Latest updates</h2>
+          <p data-i18n="home.updates.lead">The site mirrors the current build's gameplay and interface behaviour, so you can see the full experience before downloading or sending feedback.</p>
         </div>
         <div class="update-grid">
           <article class="update-card">
-            <span class="update-kicker">笔顺</span>
-            <h3>标准笔画提示持续校正</h3>
-            <p>常见的横撇、竖折、竖弯钩、卧钩、点与捺等容易混淆的提示已统一按笔顺数据校正。</p>
+            <span class="update-kicker" data-i18n="home.updates.a.kicker">Stroke order</span>
+            <h3 data-i18n="home.updates.a.title">Standard stroke hints keep getting refined</h3>
+            <p data-i18n="home.updates.a.body">Hints for easily confused strokes — such as 横撇, 竖折, 竖弯钩, 卧钩, 点 and 捺 — are now aligned with the stroke-order data.</p>
           </article>
           <article class="update-card">
-            <span class="update-kicker">上手</span>
-            <h3>第 1 关第一个字带手势引导</h3>
-            <p>第一次描红会标出起笔点，动笔后自动隐藏；之后每关都按同一套逐笔描红规则进行。</p>
+            <span class="update-kicker" data-i18n="home.updates.b.kicker">Gameplay</span>
+            <h3 data-i18n="home.updates.b.title">Choose your own strokes from level 4</h3>
+            <p data-i18n="home.updates.b.body">The next stroke is no longer revealed. All strokes are laid out below — just tap the right one, no dragging needed.</p>
           </article>
           <article class="update-card">
-            <span class="update-kicker">适配</span>
-            <h3>iPad 横竖屏与 English 文案</h3>
-            <p>主菜单、成语、文言文和描红页面都按方向自适应；英文环境下的关卡标题与拼字进度也已翻译。</p>
+            <span class="update-kicker" data-i18n="home.updates.c.kicker">Layout</span>
+            <h3 data-i18n="home.updates.c.title">iPad portrait/landscape and interface copy</h3>
+            <p data-i18n="home.updates.c.body">The main menu, idioms, classical texts and tracing screens all adapt to orientation, and level titles plus puzzle progress are localised for the supported languages.</p>
           </article>
         </div>
       </section>
 
       <section class="section" id="posts">
         <div class="section-head">
-          <h2>中文学习文章</h2>
-          <p>关于笔顺、常用字、成语和文言文的实操方法，写给刚开始学中文的人和陪孩子一起学的家长。</p>
+          <h2 data-i18n="home.posts.title">Articles on learning Chinese</h2>
+          <p data-i18n="home.posts.lead">Practical methods for stroke order, high-frequency characters, idioms and classical Chinese — written for beginners and for parents practising with their children.</p>
         </div>
         <div class="post-grid">
           <a class="post-card" href="blog/hanzi-stroke-order.html">
-            <span class="post-kicker">笔顺</span>
-            <h3>汉字笔顺怎么练才有效</h3>
-            <p>7 条基本笔顺规则、容易写错的字，以及把描红练成肌肉记忆的节奏。</p>
-            <span class="post-more">阅读全文</span>
+            <span class="post-kicker" data-i18n="home.posts.a.kicker">Stroke order</span>
+            <h3 data-i18n="home.posts.a.title">How to practise Chinese stroke order</h3>
+            <p data-i18n="home.posts.a.body">Seven basic rules, the strokes learners confuse most, and a tracing routine that turns them into muscle memory.</p>
+            <span class="post-more" data-i18n="home.posts.readMore">Read more</span>
           </a>
           <a class="post-card" href="blog/600-common-chinese-characters.html">
-            <span class="post-kicker">识字</span>
-            <h3>600 个常用汉字的学习路线</h3>
-            <p>先学哪些字、每关 10 个字怎么安排，以及如何把音、形、义连在一起记。</p>
-            <span class="post-more">阅读全文</span>
+            <span class="post-kicker" data-i18n="home.posts.b.kicker">Characters</span>
+            <h3 data-i18n="home.posts.b.title">A learning path through 600 common characters</h3>
+            <p data-i18n="home.posts.b.body">Which characters to learn first, how to group them, and how to bind sound, shape and meaning together.</p>
+            <span class="post-more" data-i18n="home.posts.readMore">Read more</span>
           </a>
           <a class="post-card" href="blog/chinese-idioms-learning.html">
-            <span class="post-kicker">成语</span>
-            <h3>四字成语怎么记才不忘</h3>
-            <p>典故、对仗结构、共享字与近义辨析：四个让成语留下来的记忆策略。</p>
-            <span class="post-more">阅读全文</span>
+            <span class="post-kicker" data-i18n="home.posts.c.kicker">Idioms</span>
+            <h3 data-i18n="home.posts.c.title">How to remember four-character idioms</h3>
+            <p data-i18n="home.posts.c.body">Allusion, parallel structure, shared characters and near-synonym contrast — four strategies that actually stick.</p>
+            <span class="post-more" data-i18n="home.posts.readMore">Read more</span>
           </a>
           <a class="post-card" href="blog/classical-chinese-basics.html">
-            <span class="post-kicker">文言</span>
-            <h3>文言文入门：从《木兰辞》到《出师表》</h3>
-            <p>文言与白话的差别、五个入门读法，以及 24 篇经典可以按什么顺序读。</p>
-            <span class="post-more">阅读全文</span>
+            <span class="post-kicker" data-i18n="home.posts.d.kicker">Classical</span>
+            <h3 data-i18n="home.posts.d.title">Classical Chinese for beginners</h3>
+            <p data-i18n="home.posts.d.body">Four key differences from modern Chinese, five ways in, and a reading order for 24 classic texts.</p>
+            <span class="post-more" data-i18n="home.posts.readMore">Read more</span>
           </a>
           <a class="post-card" href="blog/learn-chinese-characters-iphone.html">
-            <span class="post-kicker">English</span>
-            <h3>Learn Chinese Characters on iPhone</h3>
-            <p>A stroke-order-first routine: tracing, pinyin listening cards, idioms and classical texts.</p>
-            <span class="post-more">Read more</span>
+            <span class="post-kicker" data-i18n="home.posts.e.kicker">English</span>
+            <h3 data-i18n="home.posts.e.title">Learn Chinese characters on iPhone</h3>
+            <p data-i18n="home.posts.e.body">A stroke-order-first routine: tracing, pinyin listening cards, idioms and classical texts.</p>
+            <span class="post-more" data-i18n="home.posts.readMore">Read more</span>
           </a>
           <a class="post-card" href="blog/">
-            <span class="post-kicker">目录</span>
-            <h3>全部文章</h3>
-            <p>查看笔顺、识字、成语、文言文和 English 全部文章，以及 RSS 订阅地址。</p>
-            <span class="post-more">查看目录</span>
+            <span class="post-kicker" data-i18n="home.posts.f.kicker">Index</span>
+            <h3 data-i18n="home.posts.f.title">All articles</h3>
+            <p data-i18n="home.posts.f.body">Browse every guide, plus the RSS feed.</p>
+            <span class="post-more" data-i18n="home.posts.allLink">View index</span>
           </a>
         </div>
       </section>
 
       <section class="section" id="faq">
         <div class="section-head">
-          <h2>常见问题</h2>
-          <p>关于下载、适用人群、笔顺标准和设备支持的高频问题。</p>
+          <h2 data-i18n="home.faq.title">Frequently asked questions</h2>
+          <p data-i18n="home.faq.lead">Download, who it is for, stroke-order standards and device support.</p>
         </div>
         <div class="faq-list">
           <details class="faq-item" open>
-            <summary>趣学汉字适合什么人使用？</summary>
-            <p>适合刚开始学中文的海外成人与青少年、想纠正笔顺或复习成语的成人用户、喜欢文字解谜的休闲玩家，以及陪孩子一起练字的家长。内容全部为常用汉字、高频成语和教材常见文言篇目。</p>
+            <summary data-i18n="home.faq.a.q">Who is Character Assembly for?</summary>
+            <p data-i18n="home.faq.a.a">Adults and teenagers starting Chinese, adults who want to fix their stroke order or revisit idioms, casual players who enjoy word puzzles, and parents practising with their children. All content is common characters, high-frequency idioms and texts that appear in school material.</p>
           </details>
           <details class="faq-item">
-            <summary>描红是按标准笔顺吗？</summary>
-            <p>是。笔画顺序基于标准笔顺数据，并对横撇、竖折、横折钩、竖弯钩、卧钩、点与捺等容易混淆的笔形做了人工校正。写错当前笔会当场提示，不会把错笔积累到最后。</p>
+            <summary data-i18n="home.faq.b.q">Is the tracing based on standard stroke order?</summary>
+            <p data-i18n="home.faq.b.a">Yes. Stroke order comes from standard stroke-order data, with manual corrections for easily confused shapes such as 横撇, 竖折, 横折钩, 竖弯钩, 卧钩, 点 and 捺. A wrong stroke is flagged immediately instead of being caught at the end.</p>
           </details>
           <details class="faq-item">
-            <summary>需要联网或注册账号吗？</summary>
-            <p>不需要。关卡内容、发音素材和进度都保存在设备本地，断网也能继续练习。应用不要求注册账号，学习进度不会上传到服务器。</p>
+            <summary data-i18n="home.faq.c.q">Do I need an internet connection or an account?</summary>
+            <p data-i18n="home.faq.c.a">Neither. Levels, audio and progress are stored on the device, so you can practise offline. The app asks for no registration and progress is never uploaded.</p>
           </details>
           <details class="faq-item">
-            <summary>支持 iPad 和英文界面吗？</summary>
-            <p>支持。iPad 竖屏沿用手机纵向布局，横屏会把展示区与操作区并排展开；文言文的原文、字堆和拼图区横屏下可显示更多候选字。界面支持简体中文与 English 切换，成语释义提供英文说明。</p>
+            <summary data-i18n="home.faq.d.q">Does it support iPad and an English interface?</summary>
+            <p data-i18n="home.faq.d.a">Yes. iPad portrait follows the phone layout, while landscape puts the display and working area side by side. The interface switches between Simplified Chinese and English, and idiom meanings include English explanations.</p>
           </details>
           <details class="faq-item">
-            <summary>一共有多少内容？</summary>
-            <p>识字难度 60 关、每关 10 个常用汉字，共 600 字；成语难度 50 关、每关 4 个四字成语，共 200 个成语；文言文难度现有 24 篇经典文本，包括《木兰辞》《马说》《将进酒》《桃花源记》《蜀道难》《爱莲说》《陋室铭》《岳阳楼记》《出师表》等。</p>
+            <summary data-i18n="home.faq.e.q">How much content is there?</summary>
+            <p data-i18n="home.faq.e.a">60 character levels × 10 characters (600 in total), 50 idiom levels × 4 four-character idioms (200 in total) and 24 classical texts, including 木兰辞, 马说, 将进酒, 桃花源记, 蜀道难, 爱莲说, 陋室铭, 岳阳楼记 and 出师表.</p>
           </details>
           <details class="faq-item">
-            <summary>在哪里下载？</summary>
-            <p>在 App Store 搜索「趣学汉字」或「Fun Hanzi」即可下载，也可以直接打开 <a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer">App Store 页面</a>。支持 iPhone 与 iPad。</p>
+            <summary data-i18n="home.faq.f.q">Where can I download it?</summary>
+            <p><span data-i18n="home.faq.f.a">Search for “趣学汉字” or “Fun Hanzi” on the App Store, or open the </span><a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer">App Store page</a><span data-i18n="home.faq.f.b">. It runs on iPhone and iPad.</span></p>
           </details>
         </div>
       </section>
@@ -340,34 +362,34 @@
       <section class="section">
         <div class="screenshot-band">
           <div>
-            <h2>为移动端学习和休闲解谜设计</h2>
-            <p>游戏流程强调快速进入、清晰目标和即时反馈。完成一关后进度会解锁下一关；文言文支持中途继续，适合通勤、课后练习或亲子共玩。</p>
+            <h2 data-i18n="home.band.title">Designed for mobile learning and casual puzzling</h2>
+            <p data-i18n="home.band.lead">The flow favours quick starts, clear goals and immediate feedback. Finishing a level unlocks the next one, and classical texts can be resumed — good for commutes, after-school practice or playing together with family.</p>
             <div class="actions">
-              <a class="store-badge" href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer" aria-label="从 App Store 下载趣学汉字 Fun Hanzi">
+              <a class="store-badge" href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer" data-i18n-aria-label="store.badgeAria" aria-label="Download Character Assembly on the App Store">
                 <svg class="store-badge-icon" viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
                 <span class="store-badge-text">
                   <span class="store-badge-line">Download on the</span>
                   <span class="store-badge-name">App Store</span>
                 </span>
               </a>
-              <a class="button primary" href="mailto:lidonghui11911@gmail.com">反馈建议</a>
+              <a class="button primary" href="mailto:lidonghui11911@gmail.com" data-i18n="home.band.cta">Send feedback</a>
             </div>
           </div>
           <div class="screen-grid" aria-hidden="true">
             <div class="mini-screen">
-              <strong>逐笔描红</strong>
+              <strong data-i18n="home.band.mini1">Stroke tapping</strong>
               <div class="mini-glyph">木</div>
               <div class="mini-row"><span class="mini-block gold"></span><span class="mini-block red"></span><span class="mini-block"></span></div>
               <div class="mini-row"><span class="mini-block"></span><span class="mini-block gold"></span><span class="mini-block"></span></div>
             </div>
             <div class="mini-screen">
-              <strong>文言排序</strong>
+              <strong data-i18n="home.band.mini2">Text ordering</strong>
               <div class="mini-row"><span class="mini-block"></span><span class="mini-block"></span><span class="mini-block red"></span></div>
               <div class="mini-row"><span class="mini-block gold"></span><span class="mini-block"></span><span class="mini-block"></span></div>
               <div class="mini-row"><span class="mini-block red"></span><span class="mini-block gold"></span><span class="mini-block"></span></div>
             </div>
             <div class="mini-screen">
-              <strong>iPad 双栏</strong>
+              <strong data-i18n="home.band.mini3">iPad two-column</strong>
               <div class="mini-row"><span class="mini-block gold"></span><span class="mini-block"></span></div>
               <div class="mini-row"><span class="mini-block red"></span><span class="mini-block"></span></div>
               <div class="mini-row"><span class="mini-block"></span><span class="mini-block gold"></span></div>
@@ -379,15 +401,15 @@
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <span>Character-based puzzle learning for iPhone and iPad</span>
-        <span>
-          <a href="blog/">学习文章</a> ·
-          <a href="blog/hanzi-stroke-order.html">笔顺</a> ·
-          <a href="blog/chinese-idioms-learning.html">成语</a> ·
-          <a href="blog/classical-chinese-basics.html">文言文</a> ·
-          <a href="privacy/">隐私政策</a>
+        <span data-i18n="footer.tagline">Character-based puzzle learning for iPhone and iPad</span>
+        <span class="footer-links">
+          <a href="blog/" data-i18n="nav.articles">Articles</a> ·
+          <a href="blog/hanzi-stroke-order.html" data-i18n="home.posts.a.kicker">Stroke order</a> ·
+          <a href="blog/chinese-idioms-learning.html" data-i18n="home.posts.c.kicker">Idioms</a> ·
+          <a href="blog/classical-chinese-basics.html" data-i18n="home.posts.d.kicker">Classical</a> ·
+          <a href="privacy/" data-i18n="nav.privacy">Privacy</a>
         </span>
-        <span>Copyright © 2026 趣学汉字 Fun Hanzi</span>
+        <span data-i18n="footer.copyright">Copyright © 2026 Character Assembly</span>
       </div>
     </footer>
   </body>

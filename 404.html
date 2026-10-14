@@ -1,31 +1,56 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en" data-i18n-page="notFound">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>页面未找到 | 趣学汉字 Fun Hanzi</title>
+    <script>
+      /* 解析阶段先确定语言：?lang > 用户选择（localStorage）> 浏览器系统语言 > 英文。
+         支持的语言列表与 assets/i18n.js 保持一致；非英文时先隐藏页面，避免闪出默认英文。 */
+      (function () {
+        var supported = ["en", "zh", "es", "fr", "de", "pt"];
+        var code = "en";
+        try {
+          var query = new URLSearchParams(location.search).get("lang");
+          var browser = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+          var raw = String(query || localStorage.getItem("characterAssembly.locale") || browser || "en").toLowerCase().split("-")[0];
+          if (supported.indexOf(raw) !== -1) code = raw;
+        } catch (error) { /* 隐私模式等场景下使用默认语言 */ }
+        var root = document.documentElement;
+        root.setAttribute("data-locale", code);
+        root.setAttribute("lang", code === "zh" ? "zh-CN" : code);
+        if (code !== "en") {
+          var guard = document.createElement("style");
+          guard.textContent = "html:not([data-i18n-ready]) body{visibility:hidden}";
+          document.head.appendChild(guard);
+          setTimeout(function () { root.setAttribute("data-i18n-ready", "true"); }, 2000);
+        }
+      })();
+    </script>
+    <title data-i18n="page.notFound.metaTitle">Page not found | Character Assembly</title>
     <meta name="theme-color" content="#235947">
     <link rel="icon" href="/CharacterAssembly/assets/app-icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/CharacterAssembly/assets/site.css">
+    <script src="/CharacterAssembly/assets/i18n.js" defer></script>
   </head>
   <body>
     <header class="site-header">
       <nav class="nav" aria-label="Main navigation">
         <a class="brand" href="/CharacterAssembly/">
           <img src="/CharacterAssembly/assets/app-icon.svg" alt="">
-          <span>趣学汉字 Fun Hanzi</span>
+          <span>Character Assembly</span>
         </a>
         <div class="nav-links">
-          <a href="/CharacterAssembly/">首页</a>
-          <a href="/CharacterAssembly/privacy/">隐私</a>
-          <a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer">下载</a>
+          <a href="/CharacterAssembly/" data-i18n="nav.home">Home</a>
+          <a href="/CharacterAssembly/privacy/" data-i18n="nav.privacy">Privacy</a>
+          <a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer" data-i18n="nav.download">Download</a>
+          <div class="lang-switch" data-lang-switch></div>
         </div>
       </nav>
     </header>
     <main class="doc">
-      <h1>页面未找到</h1>
-      <p>这个地址没有对应页面。你可以返回趣学汉字首页继续浏览。</p>
-      <p><a class="button primary" href="/CharacterAssembly/">返回首页</a></p>
+      <h1 data-i18n="page.notFound.title">Page not found</h1>
+      <p data-i18n="page.notFound.body">There is no page at this address. You can head back to the Character Assembly home page.</p>
+      <p><a class="button primary" href="/CharacterAssembly/" data-i18n="page.notFound.cta">Back to home</a></p>
     </main>
   </body>
 </html>

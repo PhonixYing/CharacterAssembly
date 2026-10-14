@@ -1,68 +1,92 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en" data-i18n-page="privacy">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>隐私政策 | 趣学汉字 Fun Hanzi</title>
-    <meta name="description" content="趣学汉字（Fun Hanzi）隐私政策。">
+    <script>
+      /* 解析阶段先确定语言：?lang > 用户选择（localStorage）> 浏览器系统语言 > 英文。
+         支持的语言列表与 assets/i18n.js 保持一致；非英文时先隐藏页面，避免闪出默认英文。 */
+      (function () {
+        var supported = ["en", "zh", "es", "fr", "de", "pt"];
+        var code = "en";
+        try {
+          var query = new URLSearchParams(location.search).get("lang");
+          var browser = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+          var raw = String(query || localStorage.getItem("characterAssembly.locale") || browser || "en").toLowerCase().split("-")[0];
+          if (supported.indexOf(raw) !== -1) code = raw;
+        } catch (error) { /* 隐私模式等场景下使用默认语言 */ }
+        var root = document.documentElement;
+        root.setAttribute("data-locale", code);
+        root.setAttribute("lang", code === "zh" ? "zh-CN" : code);
+        if (code !== "en") {
+          var guard = document.createElement("style");
+          guard.textContent = "html:not([data-i18n-ready]) body{visibility:hidden}";
+          document.head.appendChild(guard);
+          setTimeout(function () { root.setAttribute("data-i18n-ready", "true"); }, 2000);
+        }
+      })();
+    </script>
+    <title data-i18n="page.privacy.metaTitle">Privacy Policy | Character Assembly</title>
+    <meta name="description" data-i18n-content="page.privacy.metaDescription" content="Character Assembly privacy policy.">
     <meta name="theme-color" content="#235947">
     <link rel="icon" href="../assets/app-icon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../assets/site.css">
+    <script src="../assets/i18n.js" defer></script>
   </head>
   <body>
     <header class="site-header">
       <nav class="nav" aria-label="Main navigation">
         <a class="brand" href="../">
           <img src="../assets/app-icon.svg" alt="">
-          <span>趣学汉字 Fun Hanzi</span>
+          <span>Character Assembly</span>
         </a>
         <div class="nav-links">
-          <a href="../#features">功能</a>
-          <a href="../#stages">关卡</a>
-          <a href="./">隐私</a>
-          <a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer">下载</a>
+          <a href="../#features" data-i18n="nav.features">Features</a>
+          <a href="../#stages" data-i18n="nav.stages">Levels</a>
+          <a href="./" data-i18n="nav.privacy">Privacy</a>
+          <a href="https://apps.apple.com/app/fun-hanzi/id6804096171" target="_blank" rel="noreferrer" data-i18n="nav.download">Download</a>
           <a href="https://github.com/PhonixYing/CharacterAssembly" target="_blank" rel="noreferrer">GitHub</a>
+          <div class="lang-switch" data-lang-switch></div>
         </div>
       </nav>
     </header>
 
     <main class="doc">
-      <h1>隐私政策</h1>
-      <p>最后更新：2026 年 9 月 15 日</p>
-      <p>趣学汉字（Fun Hanzi，曾用名 Character Assembly）是一款用于汉字、成语和文言文组合解谜的 iOS 应用。</p>
+      <h1 data-i18n="page.privacy.title">Privacy Policy</h1>
+      <p data-i18n="page.privacy.updated">Last updated: May 12, 2026</p>
+      <p data-i18n="page.privacy.intro">Character Assembly is an iOS app for solving puzzles built from Chinese characters, idioms and classical texts.</p>
 
       <div class="privacy-summary">
-        <p>摘要：应用不要求注册账号，不出售个人数据，不使用第三方广告 SDK。学习进度和设置全部保存在你的设备上，不会上传。</p>
+        <p data-i18n="page.privacy.summary">Summary: the app requires no account, does not sell personal data and uses no third-party ad SDK. Game progress and settings are stored mainly on your device.</p>
       </div>
 
-      <h2>我们访问的信息</h2>
-      <p>趣学汉字的核心玩法不需要你提供姓名、手机号、邮箱或账户资料。应用会在本机保存以下数据：</p>
+      <h2 data-i18n="page.privacy.info.title">Information we access</h2>
+      <p data-i18n="page.privacy.info.body">The core gameplay of Character Assembly does not require your name, phone number, email or account details. The app may store the following local data:</p>
       <ul>
-        <li>关卡进度，例如已完成到哪一关。</li>
-        <li>学习记录，例如每个字的掌握状态、今日复习队列，以及一关写到第几个字。</li>
-        <li>应用设置，例如语言、音效、音乐、触感和朗读开关。</li>
+        <li data-i18n="page.privacy.info.item1">Level progress, for example which level you have reached.</li>
+        <li data-i18n="page.privacy.info.item2">App settings such as language, sound effects, music and haptics.</li>
       </ul>
 
-      <h2>数据如何存储</h2>
-      <p>上述数据使用 Apple 系统提供的本地存储能力保存在你的设备上。应用不包含自己的服务器，也不会把学习进度上传到任何地方。</p>
+      <h2 data-i18n="page.privacy.storage.title">How data is stored</h2>
+      <p data-i18n="page.privacy.storage.body">This data is kept on your device using the local storage provided by Apple's system. The developer does not automatically upload your game progress to their own servers.</p>
 
-      <h2>分析、广告与追踪</h2>
-      <p>当前版本不包含第三方广告 SDK，也不进行跨 App 广告追踪。如果未来加入分析或崩溃报告工具，本政策和 App Store 隐私说明会在发布前更新。</p>
+      <h2 data-i18n="page.privacy.ads.title">Analytics, ads and tracking</h2>
+      <p data-i18n="page.privacy.ads.body">The current version contains no third-party ad SDK and does not perform cross-app ad tracking. If analytics or crash-reporting tools are added later, this policy and the App Store privacy details will be updated before release.</p>
 
-      <h2>儿童隐私</h2>
-      <p>趣学汉字可用于中文学习和亲子练习。我们不会有意收集儿童的个人身份信息。</p>
+      <h2 data-i18n="page.privacy.children.title">Children's privacy</h2>
+      <p data-i18n="page.privacy.children.body">Character Assembly can be used for Chinese learning and practice with children. We do not knowingly collect personal information from children.</p>
 
-      <h2>数据删除</h2>
-      <p>你可以通过 iOS 系统删除应用及其本地数据。删除应用后，设备上的本地进度和设置也会随之移除，除非你使用了系统级备份或恢复功能。</p>
+      <h2 data-i18n="page.privacy.deletion.title">Data deletion</h2>
+      <p data-i18n="page.privacy.deletion.body">You can delete the app and its local data through iOS. Removing the app also removes the local progress and settings from the device, unless you use system-level backup or restore.</p>
 
-      <h2>联系我们</h2>
-      <p>如有隐私或支持问题，请联系：<code>lidonghui11911@gmail.com</code></p>
+      <h2 data-i18n="page.privacy.contact.title">Contact us</h2>
+      <p data-i18n-html="page.privacy.contact.body">For privacy or support questions, contact: <code>lidonghui11911@gmail.com</code></p>
     </main>
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <span>Character-based puzzle learning for iPhone and iPad</span>
-        <span>Copyright © 2026 趣学汉字 Fun Hanzi</span>
+        <span data-i18n="footer.tagline">Character-based puzzle learning for iPhone and iPad</span>
+        <span data-i18n="footer.copyright">Copyright © 2026 Character Assembly</span>
       </div>
     </footer>
   </body>

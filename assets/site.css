@@ -221,7 +221,8 @@ h1 {
 .app-stage-head,
 .stroke-demo-head,
 .stage-line,
-.tile-pool {
+.tile-pool,
+.stroke-options {
   display: flex;
   align-items: center;
 }
@@ -326,11 +327,6 @@ h1 {
   font-weight: 900;
 }
 
-.glyph-preview.trace-guide {
-  color: rgba(163, 61, 47, 0.16);
-  -webkit-text-stroke: 1.5px rgba(163, 61, 47, 0.38);
-}
-
 .stroke-status {
   display: grid;
   gap: 12px;
@@ -356,11 +352,9 @@ h1 {
   background: linear-gradient(90deg, var(--green), var(--gold));
 }
 
-.stroke-legend {
-  display: flex;
+.stroke-options {
   flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 22px;
+  gap: 10px;
   margin-top: 20px;
   padding: 14px;
   border: 1px dashed rgba(35, 89, 71, 0.2);
@@ -368,35 +362,29 @@ h1 {
   background: rgba(255, 247, 231, 0.72);
 }
 
-.stroke-legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 800;
+.stroke-chip {
+  width: 58px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(35, 89, 71, 0.15);
+  border-radius: 12px;
+  background: white;
+  color: var(--green-strong);
+  font-family: ui-serif, "Songti SC", "STSong", Georgia, serif;
+  font-size: 30px;
+  font-weight: 900;
 }
 
-.legend-swatch {
-  display: block;
-  width: 14px;
-  height: 14px;
-  border: 1.5px solid transparent;
-  border-radius: 5px;
+.stroke-chip.done {
+  opacity: 0.48;
+  background: rgba(35, 89, 71, 0.10);
 }
 
-.legend-swatch.done {
-  background: var(--green);
-}
-
-.legend-swatch.current {
+.stroke-chip.active {
   border-color: rgba(163, 61, 47, 0.42);
   background: rgba(163, 61, 47, 0.12);
-}
-
-.legend-swatch.pending {
-  border-color: rgba(35, 89, 71, 0.18);
-  background: white;
+  color: var(--red);
 }
 
 .tile-pool {
@@ -720,6 +708,20 @@ h1 {
 @media (max-width: 560px) {
   .nav {
     width: min(100% - 24px, 1120px);
+    flex-wrap: wrap;
+    padding: 8px 0;
+    row-gap: 6px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .lang-select {
+    max-width: 126px;
+    padding: 6px 26px 6px 11px;
+    font-size: 12px;
   }
 
   .brand span {
@@ -814,6 +816,41 @@ h1 {
 .screenshot-band .store-badge {
   background: #ffffff;
   color: #101410;
+}
+
+/* 语言切换器 */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  max-width: 150px;
+  padding: 7px 28px 7px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background-color: rgba(255, 253, 248, 0.82);
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.4 6 6.4l5-5' fill='none' stroke='%23235947' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  background-size: 10px 7px;
+  color: var(--green-strong);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.lang-select:hover {
+  border-color: rgba(35, 89, 71, 0.42);
+}
+
+.lang-select:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }
 
 /* 文章卡片 */
