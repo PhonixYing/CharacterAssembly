@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>趣学汉字 Fun Hanzi · 中文学习文章</title>
+    <link>https://phonixying.github.io/CharacterAssembly/blog/</link>
+    <description>汉字笔顺、常用汉字、四字成语与文言文的学习方法文章，来自趣学汉字 Fun Hanzi。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 14 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://phonixying.github.io/CharacterAssembly/feed.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>汉字笔顺怎么练才有效：7 条基本规则 + 逐笔描红练习法</title>
+      <link>https://phonixying.github.io/CharacterAssembly/blog/hanzi-stroke-order.html</link>
+      <guid>https://phonixying.github.io/CharacterAssembly/blog/hanzi-stroke-order.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
+      <description>7 条基本笔顺规则、最容易混淆的 6 组笔形、10 个高频字的拆笔示范，以及每天 15 分钟的逐笔描红练习法。</description>
+    </item>
+
+    <item>
+      <title>600 个常用汉字的学习路线：先学哪些字、怎么记才不忘</title>
+      <link>https://phonixying.github.io/CharacterAssembly/blog/600-common-chinese-characters.html</link>
+      <guid>https://phonixying.github.io/CharacterAssembly/blog/600-common-chinese-characters.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
+      <description>常用汉字的七阶段分组顺序、每关 10 个字的节奏安排，以及拼音、声母韵母、常用词与例句结合的音形义记忆法。</description>
+    </item>
+
+    <item>
+      <title>四字成语怎么记才不忘：典故、对仗、共享字与近义辨析</title>
+      <link>https://phonixying.github.io/CharacterAssembly/blog/chinese-idioms-learning.html</link>
+      <guid>https://phonixying.github.io/CharacterAssembly/blog/chinese-idioms-learning.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
+      <description>四个让成语留下来的记忆策略：典故溯源、对仗结构、共享字归纳、近义辨析，以及为什么拖拽组词比选择题有效。</description>
+    </item>
+
+    <item>
+      <title>文言文入门：从《木兰辞》到《出师表》，24 篇经典可以这样读</title>
+      <link>https://phonixying.github.io/CharacterAssembly/blog/classical-chinese-basics.html</link>
+      <guid>https://phonixying.github.io/CharacterAssembly/blog/classical-chinese-basics.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
+      <description>文言与白话的四个关键差别、五个入门读法、古今异义速查，以及 24 篇经典文本的四档阅读顺序。</description>
+    </item>
+
+    <item>
+      <title>Learn Chinese Characters on iPhone: A Stroke-Order-First Routine</title>
+      <link>https://phonixying.github.io/CharacterAssembly/blog/learn-chinese-characters-iphone.html</link>
+      <guid>https://phonixying.github.io/CharacterAssembly/blog/learn-chinese-characters-iphone.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
+      <description>A 15-minute daily routine for learning Chinese characters: stroke-order tracing, pinyin listening cards, then idioms and classical texts.</description>
+    </item>
+  </channel>
+</rss>

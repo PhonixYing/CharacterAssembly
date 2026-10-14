@@ -1,0 +1,212 @@
+/* 文章页排版 */
+.article {
+  width: min(760px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0 88px;
+}
+
+.breadcrumb {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.breadcrumb a {
+  color: var(--green);
+}
+
+.article h1 {
+  margin: 0;
+  font-family: ui-serif, "Songti SC", "STSong", Georgia, serif;
+  font-size: clamp(32px, 5.4vw, 52px);
+  line-height: 1.12;
+}
+
+.article-meta {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.article-lead {
+  margin: 26px 0 0;
+  font-size: 19px;
+  line-height: 1.78;
+  color: #27342c;
+}
+
+.article h2 {
+  margin: 46px 0 14px;
+  font-family: ui-serif, "Songti SC", "STSong", Georgia, serif;
+  font-size: clamp(24px, 3.4vw, 32px);
+  line-height: 1.25;
+  color: var(--green-strong);
+}
+
+.article h3 {
+  margin: 34px 0 10px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.article p,
+.article li {
+  color: #3c4a41;
+  line-height: 1.86;
+  font-size: 17px;
+}
+
+.article p {
+  margin: 0 0 18px;
+}
+
+.article ul,
+.article ol {
+  margin: 0 0 20px;
+  padding-left: 22px;
+}
+
+.article li {
+  margin: 8px 0;
+}
+
+.article strong {
+  color: var(--ink);
+}
+
+.article a:not(.button):not(.store-badge):not(.post-card) {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article figure {
+  margin: 26px 0;
+}
+
+.toc {
+  margin: 30px 0 8px;
+  padding: 20px 22px;
+  border: 1px dashed rgba(35, 89, 71, 0.24);
+  border-radius: 12px;
+  background: rgba(255, 247, 231, 0.72);
+}
+
+.toc strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.toc li {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.glyph-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 253, 248, 0.8);
+}
+
+.glyph {
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(35, 89, 71, 0.18);
+  border-radius: 10px;
+  background: #fff8e8;
+  color: var(--green-strong);
+  font-family: ui-serif, "Songti SC", "STSong", Georgia, serif;
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.glyph-note {
+  flex: 1 1 240px;
+  align-self: center;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.article table {
+  width: 100%;
+  margin: 24px 0;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.article th,
+.article td {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.article th {
+  background: rgba(35, 89, 71, 0.08);
+  color: var(--green-strong);
+  font-weight: 850;
+}
+
+.article td {
+  color: #3c4a41;
+}
+
+.cta-box {
+  margin: 40px 0 8px;
+  padding: 26px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(21, 63, 52, 0.96), rgba(43, 100, 120, 0.9));
+  color: white;
+}
+
+.cta-box h2,
+.cta-box h3 {
+  margin: 0 0 10px;
+  color: white;
+}
+
+.cta-box p {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.related {
+  margin-top: 56px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+
+.related h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+}
