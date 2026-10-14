@@ -14,17 +14,26 @@ Then visit `http://localhost:4173`.
 
 ## GitHub Pages
 
-Publish from repository settings:
+部署由 `.github/workflows/deploy-pages.yml` 自动完成：推送到 `main` 且改动了站点文件（`index.html`、`blog/`、`assets/`、`sitemap.xml` 等）时，工作流会把静态文件打包成 Pages artifact 并发布。
+
+首次启用只需做一次：
 
 1. Open `Settings` -> `Pages`.
-2. Set `Source` to `Deploy from a branch`.
-3. Select branch `main` and folder `/ (root)`.
-4. Save.
+2. `Source` 选 **GitHub Actions**（不要选 "Deploy from a branch"，否则这个工作流不会生效）。
+3. 保存后到 `Actions` -> `Deploy to GitHub Pages` -> `Run workflow` 手动跑一次，完成首次发布。
+4. 仓库需要是 public（private 仓库的 Pages 需要付费套餐）。
 
-The site will be available at:
+之后每次推送会自动部署，地址：
 
 ```text
 https://phonixying.github.io/CharacterAssembly/
+```
+
+本地可以先验证待发布内容：
+
+```bash
+mkdir -p _site && rsync -a --delete --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
+python3 -m http.server 4173 --directory _site
 ```
 
 ## Internationalization
